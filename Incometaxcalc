@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Income Tax Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ff0000;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h1 {
+      color: #f57c00;
+    }
+
+    .tax-box {
+      border: 3px solid #ff0000;
+      border-radius: 15px;
+      padding: 25px;
+      width: 400px;
+      margin: 20px auto;
+      background-color: #ff0000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ff0000;
+    }
+
+    button {
+      background-color: #ff0000;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff0000;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #f57c00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Income Tax Calculator</h1>
+
+  <div class="tax-box">
+    <h3>Compute Your Income Tax</h3>
+    <input type="number" id="income" placeholder="Enter your annual income (₱)">
+    <button onclick="calculateTax()">Calculate</button>
+    <div class="result" id="taxResult"></div>
+  </div>
+
+  <script>
+    function calculateTax() {
+      const income = parseFloat(document.getElementById("income").value);
+      let tax = 0;
+
+      // Example tax bracket logic (simplified for student use)
+      if (income <= 250000) {
+        tax = 0;
+      } else if (income <= 400000) {
+        tax = (income - 250000) * 0.15;
+      } else if (income <= 800000) {
+        tax = 22500 + (income - 400000) * 0.20;
+      } else if (income <= 2000000) {
+        tax = 102500 + (income - 800000) * 0.25;
+      } else if (income <= 8000000) {
+        tax = 402500 + (income - 2000000) * 0.30;
+      } else {
+        tax = 2202500 + (income - 8000000) * 0.35;
+      }
+
+      const netIncome = income - tax;
+
+      document.getElementById("taxResult").innerHTML = `
+        <p>Gross Income: ₱${income.toLocaleString()}</p>
+        <p>Tax Due: ₱${tax.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</p>
+        <p><b>Net Income: ₱${netIncome.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</b></p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
